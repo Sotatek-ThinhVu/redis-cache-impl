@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 @Service
-@CacheConfig(cacheNames = "student")
 public class StudentService {
     private static final String HASH_KEY = "STUDENT";
     @Autowired
@@ -23,22 +22,20 @@ public class StudentService {
         this.redisTemplate = redisTemplate;
         this.hashOperations = redisTemplate.opsForHash();
     }
-    @CachePut(value = "student")
+
     public void save(Student student) {
         hashOperations.put(HASH_KEY, student.getId(), student);
+//        redisTemplate.opsForValue().set
     }
-    @Cacheable(value = "student")
     public Map<String, Student> findAll() {
         return hashOperations.entries(HASH_KEY);
     }
-    @Cacheable(value = "student")
     public Student findById(String id) {
         return hashOperations.get(HASH_KEY, id);
     }
     public void update(Student student) {
         save(student);
     }
-    @CacheEvict(value = "student",allEntries = true)
     public void delete(String id) {
         hashOperations.delete(HASH_KEY, id);
     }

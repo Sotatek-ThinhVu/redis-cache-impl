@@ -16,12 +16,12 @@ public class RedisConfig {
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-//        JedisConnectionFactory jedisConFactory
-//                = new JedisConnectionFactory();
-//        jedisConFactory.setHostName(redisHost);
-//        jedisConFactory.setPort(redisPort);
-//        return jedisConFactory;
-        return new JedisConnectionFactory();
+        JedisConnectionFactory jedisConFactory
+                = new JedisConnectionFactory();
+        jedisConFactory.setHostName(redisHost);
+        jedisConFactory.setPort(redisPort);
+        return jedisConFactory;
+//        return new JedisConnectionFactory();
     }
 
     @Bean
