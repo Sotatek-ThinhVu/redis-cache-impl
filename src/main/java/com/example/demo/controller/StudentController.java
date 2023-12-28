@@ -8,15 +8,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/students")
 public class StudentController {
     @Autowired
     private StudentService studentService;
 
+
     @PostMapping("")
-    public ResponseEntity<?> addStudent(@RequestBody Student student){
-        studentService.save(student);
+    public ResponseEntity<?> addStudent(@RequestBody List<Student> students){
+        students.forEach((student)->{
+            studentService.save(student);
+        });
         return new ResponseEntity<>(new MessageResponse("successfully"), HttpStatus.CREATED) ;
     }
     @GetMapping("/list")
